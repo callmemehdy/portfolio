@@ -1,451 +1,522 @@
-#  Vintage Portfolio - GitHub Integrated Portfolio Website
+# Portfolio Website
 
-A fully functional, retro-styled portfolio website that showcases your GitHub repositories with a nostalgic vintage/retro aesthetic. Built with FastAPI backend, React frontend, and SQLite database.
+<div align="center">
 
-![Vintage Computing Aesthetics](https://img.shields.io/badge/Style-Vintage%20%26%20Retro-brown?style=for-the-badge)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115.6-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-5.4.21-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4.17-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-##  Features
+A modern, vintage-styled portfolio website with GitHub integration, dark/light mode, and admin dashboard for managing projects dynamically.
 
-###  Vintage/Retro Design
-- **Nostalgic Aesthetic**: Warm sepia tones, muted pastels, and terminal-green themes
-- **Retro Typography**: Monospace fonts (Courier, VT323, Special Elite)
-- **Vintage Elements**: Punch card styling, typewriter effects, terminal themes
-- **Paper Texture**: Subtle grain overlay for authentic vintage feel
-- **Simple Animations**: Minimal, tasteful transitions and fades
+[Live Demo](#) | [Features](#features) | [Installation](#installation) | [Usage](#usage)
 
-###  Backend (FastAPI)
-- **RESTful API** with comprehensive endpoints
-- **GitHub API Integration** - Fetch repositories, README, commits, and stats
-- **SQLite Database** - Store selected projects and custom descriptions
+</div>
+
+---
+
+## Overview
+
+This portfolio website is a full-stack application that seamlessly integrates with GitHub to showcase your selected repositories. Built with a retro/vintage aesthetic, it features a clean, nostalgic design with modern functionality including dark mode, project visibility controls, and a powerful admin dashboard.
+
+### Key Highlights
+
+- **GitHub Integration** - Automatically fetches and displays repository information
+- **Admin Dashboard** - Manage projects, visibility, descriptions, and personal settings
+- **Dark/Light Mode** - Toggle between themes with smooth transitions
+- **Responsive Design** - Optimized for all screen sizes
+- **Vintage Aesthetic** - Retro terminal-inspired design with modern UX
 - **JWT Authentication** - Secure admin operations
-- **Caching System** - Reduce GitHub API rate limit issues
-- **CORS Support** - Configured for frontend integration
+- **RESTful API** - Clean backend architecture with FastAPI
 
-###  Frontend (React + Vite)
-- **Modern React** with hooks and functional components
-- **Tailwind CSS** with custom vintage color scheme
-- **Responsive Design** - Works on all devices
-- **Admin Panel** - Terminal-style interface for managing projects
-- **Project Showcase** - Display selected repositories with detailed info
-- **README Viewer** - Modal with formatted markdown display
-- **Contact Form** - Vintage-styled contact section
+---
 
-###  Security
-- JWT token-based authentication
-- Password-protected admin routes
-- Environment variable configuration
-- Secure credential storage
+## Features
 
-##  Project Structure
+### Frontend
 
-```
-portfolio/
- backend/
-    app/
-       database/
-          __init__.py
-          database.py          # SQLAlchemy configuration
-       models/
-          __init__.py
-          project.py           # Database models
-          schemas.py           # Pydantic schemas
-       routes/
-          __init__.py
-          auth.py              # Authentication endpoints
-          github.py            # GitHub API endpoints
-          projects.py          # Project management endpoints
-       services/
-          __init__.py
-          auth_service.py      # JWT & authentication logic
-          github_service.py    # GitHub API interactions
-       __init__.py
-       config.py                # Configuration management
-       main.py                  # FastAPI application
-    .env.example
-    requirements.txt
+- **React 18** with modern hooks and context API
+- **Vite** for lightning-fast development and builds
+- **TailwindCSS** with custom vintage/retro theme
+- **Lucide Icons** for consistent iconography
+- **Dark/Light Mode** with system preference detection
+- **Responsive Design** with mobile-first approach
+- **Smooth Animations** and transitions
+- **Admin Panel** for content management
 
- frontend/
-     src/
-        components/
-           About.jsx            # About section
-           Contact.jsx          # Contact form
-           Footer.jsx           # Footer component
-           Header.jsx           # Navigation header
-           Hero.jsx             # Hero section with typewriter effect
-           ProjectCard.jsx      # Project display card
-           Projects.jsx         # Projects showcase section
-           RepoModal.jsx        # README viewer modal
-        pages/
-           Admin.jsx            # Admin panel (terminal theme)
-           Home.jsx             # Main portfolio page
-           Login.jsx            # Admin login page
-        services/
-           api.js               # API service & axios setup
-        styles/
-           index.css            # Custom Tailwind styles
-        utils/
-           helpers.js           # Utility functions
-        App.jsx                  # Main app component
-        main.jsx                 # React entry point
-     index.html
-     .env.example
-     package.json
-     postcss.config.js
-     tailwind.config.js
-     vite.config.js
-```
+### Backend
 
-##  Quick Start
+- **FastAPI** framework for high-performance API
+- **SQLite** database for data persistence
+- **GitHub API v3** integration
+- **JWT Authentication** for secure endpoints
+- **CORS** middleware configured
+- **Environment-based** configuration
+- **Async/Await** patterns throughout
+
+### Project Management
+
+- **Select/Deselect** repositories from GitHub
+- **Custom Descriptions** for each project
+- **Visibility Toggle** (show/hide from public view)
+- **Project Reordering** with drag-and-drop style controls
+- **Automatic Sync** with GitHub repository data
+- **README Preview** in modal popups
+
+### Personal Settings
+
+- **Editable Profile** information
+- **Contact Details** management
+- **Bio/Description** customization
+- **Social Links** (GitHub, LinkedIn)
+- **Real-time Updates** across the site
+
+---
+
+## Tech Stack
+
+### Backend Technologies
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| ![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white) | 3.13+ | Core language |
+| ![FastAPI](https://img.shields.io/badge/FastAPI-0.115.6-009688?logo=fastapi&logoColor=white) | 0.115.6 | Web framework |
+| ![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white) | 3.x | Database |
+| ![Uvicorn](https://img.shields.io/badge/Uvicorn-0.34.0-499848?logo=gunicorn&logoColor=white) | 0.34.0 | ASGI server |
+| ![PyJWT](https://img.shields.io/badge/PyJWT-2.10.1-000000?logo=jsonwebtokens&logoColor=white) | 2.10.1 | Authentication |
+
+### Frontend Technologies
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| ![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=black) | 18.3.1 | UI framework |
+| ![Vite](https://img.shields.io/badge/Vite-5.4.21-646CFF?logo=vite&logoColor=white) | 5.4.21 | Build tool |
+| ![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4.17-06B6D4?logo=tailwindcss&logoColor=white) | 3.4.17 | Styling |
+| ![Lucide](https://img.shields.io/badge/Lucide-0.468.0-F56565?logo=lucide&logoColor=white) | 0.468.0 | Icons |
+
+---
+
+## Installation
 
 ### Prerequisites
-- Python 3.8+
-- Node.js 18+
-- GitHub Personal Access Token
-- Git
 
-### 1. Clone the Repository
+- **Node.js** 18+ and npm/yarn
+- **Python** 3.13+
+- **Git**
+- **GitHub Personal Access Token** ([Create one here](https://github.com/settings/tokens))
+
+### Clone Repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/mel-akar/portfolio.git
 cd portfolio
 ```
 
-### 2. Backend Setup
+### Backend Setup
 
-#### Create Virtual Environment
 ```bash
+# Navigate to backend
 cd backend
+
+# Create virtual environment
 python -m venv venv
 
-# On Linux/Mac:
-source venv/bin/activate
+# Activate virtual environment
+source venv/bin/activate  # Linux/Mac
+# or
+venv\Scripts\activate     # Windows
 
-# On Windows:
-venv\Scripts\activate
-```
-
-#### Install Dependencies
-```bash
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-#### Configure Environment Variables
+### Frontend Setup
+
 ```bash
-cp .env.example .env
-```
-
-Edit `.env` with your configuration:
-```env
-# GitHub Configuration
-GITHUB_TOKEN=ghp_your_github_personal_access_token
-GITHUB_USERNAME=your_github_username
-
-# Security (generate with: openssl rand -hex 32)
-SECRET_KEY=your_secret_key_here_at_least_32_characters_long
-ADMIN_PASSWORD=your_secure_admin_password
-
-# Database
-DATABASE_URL=sqlite:///./portfolio.db
-
-# CORS Origins
-CORS_ORIGINS=http://localhost:3000,http://localhost:5173
-
-# Server
-HOST=0.0.0.0
-PORT=8000
-```
-
-#### Create GitHub Personal Access Token
-
-1. Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
-2. Click "Generate new token (classic)"
-3. Give it a descriptive name (e.g., "Portfolio API")
-4. Select scopes:
-   -  `repo` (Full control of private repositories)
-   -  `read:user` (Read user profile data)
-5. Click "Generate token"
-6. Copy the token and paste it in your `.env` file
-
-#### Generate Secret Key
-```bash
-# On Linux/Mac:
-openssl rand -hex 32
-
-# On Windows (PowerShell):
--join ((48..57) + (65..90) + (97..122) | Get-Random -Count 32 | % {[char]$_})
-```
-
-#### Run the Backend
-```bash
-python -m app.main
-# or
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-
-Backend will be available at: `http://localhost:8000`
-API Documentation: `http://localhost:8000/docs`
-
-### 3. Frontend Setup
-
-#### Install Dependencies
-```bash
+# Navigate to frontend
 cd frontend
+
+# Install dependencies
 npm install
 ```
 
-#### Configure Environment Variables
-```bash
-cp .env.example .env
-```
+### Environment Configuration
 
-Edit `.env`:
+Create a `.env` file in the project root:
+
 ```env
-VITE_API_URL=http://localhost:8000
+# GitHub Configuration
+GITHUB_TOKEN=your_github_personal_access_token_here
+GITHUB_USERNAME=your_github_username
+
+# JWT Configuration
+SECRET_KEY=your-super-secret-key-change-this-in-production
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+# Admin Credentials
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=change-this-password
 ```
 
-#### Run the Frontend
+#### Creating GitHub Personal Access Token
+
+1. Go to [GitHub Settings > Developer Settings > Personal Access Tokens](https://github.com/settings/tokens)
+2. Click "Generate new token (classic)"
+3. Give it a descriptive name
+4. Select scopes: `repo` (all), `user:read`
+5. Generate token and copy it to `.env`
+
+---
+
+## Usage
+
+### Using Makefile (Recommended)
+
 ```bash
-npm run dev
+# Install all dependencies
+make install
+
+# Run both backend and frontend
+make dev
+
+# Run backend only
+make backend
+
+# Run frontend only
+make frontend
+
+# Clean build artifacts
+make clean
+
+# View all commands
+make help
 ```
 
-Frontend will be available at: `http://localhost:5173`
+### Manual Commands
 
-##  Usage Guide
+#### Backend
 
-### Accessing the Portfolio
-1. Open `http://localhost:5173` in your browser
-2. Browse the portfolio sections:
-   - **Hero**: Typewriter effect introduction
-   - **About**: Skills and background
-   - **Projects**: Selected GitHub repositories
-   - **Contact**: Contact form
-
-### Managing Projects (Admin)
-
-#### Login to Admin Panel
-1. Click the "Admin" button in the header
-2. Enter your admin password (from `.env`)
-3. You'll be redirected to the terminal-style admin panel
-
-#### Add Projects
-1. Browse "All Repositories" list on the right
-2. Click `[ADD TO PORTFOLIO]` on any repository
-3. The project will appear in "Selected Projects"
-
-#### Remove Projects
-1. Find the project in "Selected Projects"
-2. Click `REMOVE` button
-3. Project will be removed from portfolio
-
-#### Reorder Projects
-1. Use  and  buttons to adjust display priority
-2. Higher priority projects appear first
-3. Changes are saved automatically
-
-### API Endpoints
-
-#### Public Endpoints
-- `GET /` - API information
-- `GET /health` - Health check
-- `GET /api/projects` - Get all selected projects
-- `GET /api/github/repos` - Get all GitHub repositories
-- `GET /api/github/repo/{owner}/{repo}` - Get repo details
-
-#### Protected Endpoints (Require JWT Token)
-- `POST /api/auth/login` - Authenticate and get token
-- `POST /api/projects` - Add project to portfolio
-- `PUT /api/projects/{id}` - Update project
-- `DELETE /api/projects/{id}` - Remove project
-
-##  Customization
-
-### Color Scheme
-Edit `frontend/tailwind.config.js`:
-```javascript
-colors: {
-  vintage: {
-    cream: '#F4F1DE',      // Background
-    tan: '#E8DABE',        // Secondary background
-    brown: '#8B7355',      // Text muted
-    darkBrown: '#5C4742',  // Text dark
-    ink: '#2C2416',        // Primary text
-    accent: '#C77B58',     // Accent color
-    mint: '#A3B899',       // Success color
-    terminal: '#33FF33',   // Terminal green
-    terminalBg: '#0C0C0C', // Terminal background
-  }
-}
-```
-
-### Fonts
-Edit `frontend/index.html` to add/change Google Fonts:
-```html
-<link href="https://fonts.googleapis.com/css2?family=Your+Font&display=swap" rel="stylesheet">
-```
-
-Update `frontend/tailwind.config.js`:
-```javascript
-fontFamily: {
-  mono: ['Your Font', 'monospace'],
-}
-```
-
-### Content
-Edit the following components:
-- `Hero.jsx` - Update welcome text
-- `About.jsx` - Update bio, skills, and background
-- `Contact.jsx` - Update contact information
-- `Footer.jsx` - Update social links
-
-##  Development
-
-### Backend Development
 ```bash
 cd backend
-# Run with auto-reload
-uvicorn app.main:app --reload
-
-# Run tests (if you add them)
-pytest
-
-# Check code style
-black app/
-flake8 app/
+source venv/bin/activate
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### Frontend Development
+Backend will be available at `http://localhost:8000`
+
+#### Frontend
+
 ```bash
 cd frontend
-# Run dev server
 npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Lint code
-npm run lint
 ```
 
-##  Deployment
+Frontend will be available at `http://localhost:5173`
+
+### First Time Setup
+
+1. Start both backend and frontend
+2. Navigate to `http://localhost:5173`
+3. Click the login button in header (visible only when not authenticated)
+4. Login with credentials from `.env`:
+   - Username: `admin`
+   - Password: (what you set in `.env`)
+5. Access admin dashboard to configure:
+   - Select repositories to display
+   - Add custom descriptions
+   - Update personal settings
+   - Toggle project visibility
+
+---
+
+## API Documentation
+
+Once the backend is running, visit:
+
+- **Interactive API Docs**: `http://localhost:8000/docs`
+- **Alternative Docs**: `http://localhost:8000/redoc`
+
+### Main Endpoints
+
+#### Public Endpoints
+
+```
+GET  /api/projects              - Get all visible projects
+GET  /api/github/repos          - List all GitHub repositories
+GET  /api/github/repo/{owner}/{repo} - Get specific repository details
+GET  /api/settings              - Get personal settings
+```
+
+#### Protected Endpoints (Require Authentication)
+
+```
+POST   /api/auth/login          - Login to admin
+POST   /api/projects            - Add project to portfolio
+DELETE /api/projects/{id}       - Remove project from portfolio
+PATCH  /api/projects/{id}/visibility - Toggle project visibility
+PATCH  /api/projects/{id}/description - Update project description
+PATCH  /api/projects/{id}/order - Reorder projects
+PUT    /api/settings            - Update personal settings
+```
+
+---
+
+## Project Structure
+
+```
+portfolio/
+├── backend/
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py                 # FastAPI application entry
+│   │   ├── database.py             # Database configuration
+│   │   ├── models.py               # SQLAlchemy models
+│   │   └── routes/
+│   │       ├── auth.py             # Authentication endpoints
+│   │       ├── projects.py         # Project management
+│   │       ├── github.py           # GitHub API integration
+│   │       └── settings.py         # Settings management
+│   ├── requirements.txt            # Python dependencies
+│   └── venv/                       # Virtual environment
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Header.jsx          # Navigation header
+│   │   │   ├── Footer.jsx          # Footer with quote
+│   │   │   ├── Hero.jsx            # Landing section
+│   │   │   ├── About.jsx           # About section
+│   │   │   ├── Projects.jsx        # Project showcase
+│   │   │   ├── Contact.jsx         # Contact form
+│   │   │   ├── ProjectManager.jsx  # Admin project management
+│   │   │   └── SettingsPanel.jsx   # Admin settings
+│   │   ├── pages/
+│   │   │   ├── Home.jsx            # Main page
+│   │   │   ├── Admin.jsx           # Admin dashboard
+│   │   │   └── Login.jsx           # Login page
+│   │   ├── context/
+│   │   │   └── ThemeContext.jsx    # Dark mode context
+│   │   ├── styles/
+│   │   │   └── index.css           # Global styles
+│   │   ├── App.jsx                 # Root component
+│   │   └── main.jsx                # Entry point
+│   ├── public/
+│   │   └── favicon.ico             # Site icon
+│   ├── package.json                # Node dependencies
+│   ├── tailwind.config.js          # Tailwind configuration
+│   └── vite.config.js              # Vite configuration
+├── .env                            # Environment variables
+├── .gitignore                      # Git ignore rules
+├── Makefile                        # Build automation
+├── LICENSE                         # MIT License
+└── README.md                       # This file
+```
+
+---
+
+## Configuration
+
+### Tailwind Custom Theme
+
+The project uses a custom vintage/retro color palette:
+
+```javascript
+// Light Mode
+vintage-paper: #F4ECD8
+vintage-ink: #2C2416
+vintage-accent: #8B4513
+vintage-muted: #A0826D
+
+// Dark Mode
+dark-bg: #1a1a1a
+dark-paper: #2a2a2a
+dark-ink: #e8e6e3
+dark-accent: #D2691E
+dark-border: #404040
+```
+
+### Database Schema
+
+**Projects Table**
+```sql
+- id: INTEGER PRIMARY KEY
+- github_url: TEXT UNIQUE
+- custom_description: TEXT
+- display_order: INTEGER
+- is_visible: BOOLEAN
+- created_at: TIMESTAMP
+```
+
+**Settings Table**
+```sql
+- id: INTEGER PRIMARY KEY
+- full_name: TEXT
+- job_title: TEXT
+- subtitle: TEXT
+- email: TEXT
+- phone: TEXT
+- location: TEXT
+- github_url: TEXT
+- linkedin_url: TEXT
+- bio: TEXT
+- updated_at: TIMESTAMP
+```
+
+---
+
+## Development
+
+### Adding New Features
+
+1. **Backend**: Add routes in `backend/app/routes/`
+2. **Frontend**: Create components in `frontend/src/components/`
+3. **Styling**: Use Tailwind classes with dark mode support
+4. **State**: Use React Context for global state
+
+### Code Style
+
+- **Python**: Follow PEP 8
+- **JavaScript**: Use ESLint recommended
+- **React**: Functional components with hooks
+- **CSS**: Tailwind utility-first approach
+
+### Testing
+
+```bash
+# Backend tests (if implemented)
+cd backend
+pytest
+
+# Frontend tests (if implemented)
+cd frontend
+npm test
+```
+
+---
+
+## Deployment
 
 ### Backend Deployment
 
-#### Using Uvicorn (Production)
+**Option 1: Traditional Server**
 ```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+cd backend
+gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
 
-#### Using Docker
-Create `backend/Dockerfile`:
+**Option 2: Docker**
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.13-slim
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY app/ ./app/
+RUN pip install -r requirements.txt
+COPY . .
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-Build and run:
-```bash
-docker build -t portfolio-backend .
-docker run -p 8000:8000 --env-file .env portfolio-backend
 ```
 
 ### Frontend Deployment
 
-#### Build Production Bundle
 ```bash
+cd frontend
 npm run build
-# Output will be in dist/ directory
+# Deploy the 'dist' folder to your hosting service
 ```
 
-#### Deploy to Vercel
+**Recommended Platforms**:
+- Vercel (Frontend)
+- Railway (Backend)
+- Render (Full Stack)
+- DigitalOcean (VPS)
+
+### Environment Variables for Production
+
+Remember to update `.env` with production values:
+- Generate strong `SECRET_KEY`
+- Change `ADMIN_PASSWORD`
+- Update CORS origins in `backend/app/main.py`
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+**Backend won't start**
 ```bash
-npm install -g vercel
-vercel
+# Check Python version
+python --version  # Should be 3.13+
+
+# Recreate virtual environment
+rm -rf venv
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-#### Deploy to Netlify
+**Frontend won't start**
 ```bash
-npm install -g netlify-cli
-netlify deploy --prod
+# Clear node modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
 ```
 
-#### Deploy to Static Hosting
-Upload the contents of `dist/` to any static hosting service:
-- GitHub Pages
-- Cloudflare Pages
-- AWS S3 + CloudFront
-- Nginx
-
-##  Troubleshooting
-
-### Backend Issues
-
-**Error: "Could not validate credentials"**
-- Check if `GITHUB_TOKEN` is valid
-- Ensure token has correct scopes
-- Generate a new token if expired
-
-**Error: "Module not found"**
-- Ensure virtual environment is activated
-- Run `pip install -r requirements.txt` again
+**GitHub API rate limit**
+- Ensure `GITHUB_TOKEN` is set in `.env`
+- Token increases rate limit from 60 to 5000 requests/hour
 
 **Database errors**
-- Delete `portfolio.db` and restart the server
-- Check SQLite is installed
+```bash
+# Delete and recreate database
+rm backend/portfolio.db
+# Restart backend - database will be recreated
+```
 
-### Frontend Issues
+---
 
-**Error: "Failed to fetch"**
-- Check if backend is running on port 8000
-- Verify `VITE_API_URL` in `.env`
-- Check CORS settings in backend
+## Contributing
 
-**Build errors**
-- Delete `node_modules/` and run `npm install`
-- Clear cache: `npm cache clean --force`
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-**Styling issues**
-- Run `npm run build` to regenerate Tailwind CSS
-- Check browser console for errors
-
-##  License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-##  Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-1. Fork the project
+1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-##  Support
+---
 
-If you have any questions or need help, please open an issue or contact me at your-email@example.com
+## License
 
-##  Acknowledgments
-
-- FastAPI for the amazing Python web framework
-- React team for the frontend library
-- Tailwind CSS for the styling framework
-- GitHub API for repository data
-- Retro computing aesthetics for inspiration
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-**Built with  and nostalgia for vintage computing**
+## Author
 
+**Mehdi EL AKARY**
 
+- GitHub: [@mel-akar](https://github.com/mel-akar)
+- LinkedIn: [Mehdi EL AKARY](https://linkedin.com/in/mehdi-el-akary)
+- Email: akary.mehdi@gmail.com
 
-[GitHub] • [Portfolio] • [LinkedIn]
+---
+
+## Acknowledgments
+
+- FastAPI for the excellent Python web framework
+- React team for the powerful UI library
+- TailwindCSS for the utility-first CSS framework
+- GitHub for the comprehensive API
+- Lucide for beautiful icons
+
+---
+
+<div align="center">
+
+**"What I cannot create, I do not understand"** - Richard Feynman
+
+Made with passion for clean code and elegant design
+
+</div>
