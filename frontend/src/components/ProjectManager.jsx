@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, Eye, EyeOff, ChevronUp, ChevronDown, Save, X, Github } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 export default function ProjectManager() {
   const [projects, setProjects] = useState([]);
   const [repos, setRepos] = useState([]);
@@ -17,7 +19,7 @@ export default function ProjectManager() {
   const fetchProjects = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:8000/api/projects/all', {
+      const response = await fetch(`${API_URL}/api/projects/all`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -33,7 +35,7 @@ export default function ProjectManager() {
 
   const fetchRepos = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/github/repos');
+      const response = await fetch(`${API_URL}/api/github/repos`);
       const data = await response.json();
       setRepos(data);
     } catch (error) {
@@ -44,7 +46,7 @@ export default function ProjectManager() {
   const addProject = async (repoName) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:8000/api/projects', {
+      const response = await fetch(`${API_URL}/api/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +67,7 @@ export default function ProjectManager() {
   const deleteProject = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:8000/api/projects/${id}`, {
+      const response = await fetch(`${API_URL}/api/projects/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -83,7 +85,7 @@ export default function ProjectManager() {
   const toggleVisibility = async (id, currentVisibility) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:8000/api/projects/${id}/visibility`, {
+      const response = await fetch(`${API_URL}/api/projects/${id}/visibility`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +105,7 @@ export default function ProjectManager() {
   const updateDescription = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:8000/api/projects/${id}/description`, {
+      const response = await fetch(`${API_URL}/api/projects/${id}/description`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
