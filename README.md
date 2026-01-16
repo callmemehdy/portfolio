@@ -497,9 +497,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Mehdi EL AKARY**
 
-- GitHub: [@mel-akar](https://github.com/mel-akar)
-- LinkedIn: [Mehdi EL AKARY](https://linkedin.com/in/mehdi-el-akary)
-- Email: akary.mehdi@gmail.com
+- GitHub: [@callmemehdy](https://github.com/callmemehdy)
+- LinkedIn: [elakarymehdi](https://linkedin.com/in/elakarymehdi)
+- Email: mehdyakr@gmail.com
 
 ---
 
