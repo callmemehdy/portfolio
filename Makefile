@@ -1,8 +1,11 @@
-.PHONY: help install-backend install-frontend install setup start stop clean test backend frontend
+.PHONY: help install-backend install-frontend install setup start stop clean test backend frontend push
 
 BLUE := \033[0;34m
 GREEN := \033[0;32m
 NC := \033[0m # No Color
+
+push:
+	@git add . && read -p "Enter a commit message: " c && git commit -m "$$c" && git push
 
 help:
 	@echo "$(BLUE)Vintage Portfolio - Available Commands$(NC)"
