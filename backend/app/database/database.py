@@ -30,6 +30,9 @@ def get_db():
 
 def init_db():
     """Initialize database tables."""
+    # Import models to register them with Base
+    from app.models.project import Project
+    
     Base.metadata.create_all(bind=engine)
     
     # Initialize settings table (raw SQLite)
