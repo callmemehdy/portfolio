@@ -190,7 +190,7 @@ export default function ProjectManager() {
         </h2>
         <button
           onClick={() => setShowRepoModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-vintage-ink dark:bg-dark-accent text-vintage-paper dark:text-dark-bg border-2 border-vintage-ink dark:border-dark-accent hover:bg-vintage-paper hover:text-vintage-ink dark:hover:bg-dark-bg dark:hover:text-dark-accent transition-colors font-mono"
+          className="flex items-center gap-2 px-4 py-2 bg-vintage-ink dark:bg-dark-accent text-white dark:text-dark-bg border-2 border-vintage-ink dark:border-dark-accent hover:bg-vintage-accent dark:hover:bg-dark-accent/80 transition-colors font-mono"
         >
           <Plus size={20} />
           Add Project
@@ -209,7 +209,7 @@ export default function ProjectManager() {
             <div
               key={project.id}
               className={`border-2 border-vintage-ink dark:border-dark-border p-6 ${
-                project.is_visible ? 'bg-vintage-paper dark:bg-dark-card' : 'bg-gray-100 dark:bg-gray-800 opacity-60'
+                project.is_visible ? 'bg-white dark:bg-dark-card' : 'bg-gray-100 dark:bg-gray-800 opacity-60'
               } transition-all`}
             >
               <div className="flex items-start justify-between gap-4">
@@ -233,13 +233,13 @@ export default function ProjectManager() {
                         value={customDescription}
                         onChange={(e) => setCustomDescription(e.target.value)}
                         placeholder="Enter custom description..."
-                        className="w-full px-4 py-2 border-2 border-vintage-ink dark:border-dark-border bg-vintage-paper dark:bg-dark-bg text-vintage-ink dark:text-dark-text font-mono focus:outline-none focus:ring-2 focus:ring-vintage-accent dark:focus:ring-dark-accent"
+                        className="w-full px-4 py-2 border-2 border-vintage-ink dark:border-dark-border bg-white dark:bg-dark-bg text-vintage-ink dark:text-dark-text font-mono focus:outline-none focus:ring-2 focus:ring-vintage-accent dark:focus:ring-dark-accent"
                         rows="4"
                       />
                       <div className="flex gap-2">
                         <button
                           onClick={() => updateDescription(project.id)}
-                          className="flex items-center gap-2 px-3 py-1 bg-vintage-ink dark:bg-dark-accent text-vintage-paper dark:text-dark-bg border-2 border-vintage-ink dark:border-dark-accent hover:bg-vintage-paper hover:text-vintage-ink dark:hover:bg-dark-bg dark:hover:text-dark-accent transition-colors font-mono text-sm"
+                          className="flex items-center gap-2 px-3 py-1 bg-vintage-ink dark:bg-dark-accent text-white dark:text-dark-bg border-2 border-vintage-ink dark:border-dark-accent hover:bg-vintage-accent dark:hover:bg-dark-accent/80 transition-colors font-mono text-sm"
                         >
                           <Save size={16} />
                           Save
@@ -277,7 +277,7 @@ export default function ProjectManager() {
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={() => toggleVisibility(project.id, project.is_visible)}
-                    className="p-2 border-2 border-vintage-ink dark:border-dark-border hover:bg-vintage-ink hover:text-vintage-paper dark:hover:bg-dark-accent dark:hover:text-dark-bg transition-colors"
+                    className="p-2 border-2 border-vintage-ink dark:border-dark-border hover:bg-vintage-ink hover:text-white dark:hover:bg-dark-accent dark:hover:text-dark-bg transition-colors"
                     title={project.is_visible ? 'Hide from portfolio' : 'Show in portfolio'}
                   >
                     {project.is_visible ? <Eye size={20} /> : <EyeOff size={20} />}
@@ -286,7 +286,7 @@ export default function ProjectManager() {
                   <button
                     onClick={() => moveProject(project.id, 'up')}
                     disabled={index === 0}
-                    className="p-2 border-2 border-vintage-ink dark:border-dark-border hover:bg-vintage-ink hover:text-vintage-paper dark:hover:bg-dark-accent dark:hover:text-dark-bg transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="p-2 border-2 border-vintage-ink dark:border-dark-border hover:bg-vintage-ink hover:text-white dark:hover:bg-dark-accent dark:hover:text-dark-bg transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                     title="Move up"
                   >
                     <ChevronUp size={20} />
@@ -295,7 +295,7 @@ export default function ProjectManager() {
                   <button
                     onClick={() => moveProject(project.id, 'down')}
                     disabled={index === projects.length - 1}
-                    className="p-2 border-2 border-vintage-ink dark:border-dark-border hover:bg-vintage-ink hover:text-vintage-paper dark:hover:bg-dark-accent dark:hover:text-dark-bg transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="p-2 border-2 border-vintage-ink dark:border-dark-border hover:bg-vintage-ink hover:text-white dark:hover:bg-dark-accent dark:hover:text-dark-bg transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                     title="Move down"
                   >
                     <ChevronDown size={20} />
@@ -318,7 +318,7 @@ export default function ProjectManager() {
 
       {showRepoModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-          <div className="bg-vintage-paper dark:bg-dark-card border-4 border-vintage-ink dark:border-dark-border max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
+          <div className="bg-white dark:bg-dark-card border-4 border-vintage-ink dark:border-dark-border max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-2xl font-bold text-vintage-ink dark:text-dark-text font-mono">
                 Add Repository
@@ -361,7 +361,7 @@ export default function ProjectManager() {
                       </div>
                       <button
                         onClick={() => addProject(repo.name, repo.owner.login)}
-                        className="px-4 py-2 bg-vintage-ink dark:bg-dark-accent text-vintage-paper dark:text-dark-bg border-2 border-vintage-ink dark:border-dark-accent hover:bg-vintage-paper hover:text-vintage-ink dark:hover:bg-dark-bg dark:hover:text-dark-accent transition-colors font-mono text-sm whitespace-nowrap"
+                        className="px-4 py-2 bg-vintage-ink dark:bg-dark-accent text-white dark:text-dark-bg border-2 border-vintage-ink dark:border-dark-accent hover:bg-vintage-accent dark:hover:bg-dark-accent/80 transition-colors font-mono text-sm whitespace-nowrap"
                       >
                         Add
                       </button>
