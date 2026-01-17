@@ -132,7 +132,7 @@ export default function ProjectManager() {
     if (newOrder < 0 || newOrder >= projects.length) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/projects/${id}/order`, {
+      const response = await fetch(`${API_URL}/api/projects/${id}/order`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
