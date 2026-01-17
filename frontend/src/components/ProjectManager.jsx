@@ -43,7 +43,7 @@ export default function ProjectManager() {
     }
   };
 
-  const addProject = async (repoName) => {
+  const addProject = async (repoName, repoOwner) => {
     const token = localStorage.getItem('token');
     try {
       const response = await fetch(`${API_URL}/api/projects`, {
@@ -52,7 +52,10 @@ export default function ProjectManager() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ repo_name: repoName })
+        body: JSON.stringify({ 
+          repo_name: repoName,
+          repo_owner: repoOwner
+        })
       });
 
       if (response.ok) {
@@ -346,7 +349,7 @@ export default function ProjectManager() {
                         </div>
                       </div>
                       <button
-                        onClick={() => addProject(repo.name)}
+                        onClick={() => addProject(repo.name, repo.owner.login)}
                         className="px-4 py-2 bg-vintage-ink dark:bg-dark-accent text-vintage-paper dark:text-dark-bg border-2 border-vintage-ink dark:border-dark-accent hover:bg-vintage-paper hover:text-vintage-ink dark:hover:bg-dark-bg dark:hover:text-dark-accent transition-colors font-mono text-sm whitespace-nowrap"
                       >
                         Add
