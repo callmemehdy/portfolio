@@ -6,6 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 export default function ProjectManager() {
   const [projects, setProjects] = useState([]);
   const [repos, setRepos] = useState([]);
+  const [reposData, setReposData] = useState({});
   const [loading, setLoading] = useState(true);
   const [showRepoModal, setShowRepoModal] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
@@ -38,6 +39,13 @@ export default function ProjectManager() {
       const response = await fetch(`${API_URL}/api/github/repos`);
       const data = await response.json();
       setRepos(data);
+      
+      // Create a map of repo data for easy lookup
+      const reposMap = {};
+      data.forEach(repo => {
+        reposMap[repo.name] = repo;
+      });
+      setReposData(reposMap);
     } catch (error) {
       console.error('Error fetching repos:', error);
     }
@@ -195,7 +203,9 @@ export default function ProjectManager() {
             No projects added yet. Click "Add Project" to get started.
           </div>
         ) : (
-          projects.map((project, index) => (
+          projects.map((project, index) => {
+            const repoData = reposData[project.repo_name] || {};
+            return (
             <div
               key={project.id}
               className={`border-2 border-vintage-ink dark:border-dark-border p-6 ${
@@ -246,7 +256,7 @@ export default function ProjectManager() {
                   ) : (
                     <div>
                       <p className="text-vintage-ink/80 dark:text-dark-text/80 mb-3 font-mono">
-                        {project.custom_description || project.description || 'No description'}
+                        {project.custom_description || repoData.description || 'No description'}
                       </p>
                       <button
                         onClick={() => startEditing(project)}
@@ -258,9 +268,9 @@ export default function ProjectManager() {
                   )}
 
                   <div className="flex gap-4 mt-3 text-sm font-mono text-vintage-ink/60 dark:text-dark-text/60">
-                    <span>Language: {project.language || 'N/A'}</span>
-                    <span>Stars: {project.stars || 0}</span>
-                    <span>Forks: {project.forks || 0}</span>
+                    <span>Language: {repoData.language || 'N/A'}</span>
+                    <span>Stars: {repoData.stargazers_count || 0}</span>
+                    <span>Forks: {repoData.forks_count || 0}</span>
                   </div>
                 </div>
 
@@ -301,7 +311,8 @@ export default function ProjectManager() {
                 </div>
               </div>
             </div>
-          ))
+          );
+          })
         )}
       </div>
 
