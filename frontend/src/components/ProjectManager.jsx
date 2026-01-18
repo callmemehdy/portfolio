@@ -26,9 +26,17 @@ export default function ProjectManager() {
         }
       });
       const data = await response.json();
-      setProjects(data);
+      
+      // Check if the response is actually an array
+      if (Array.isArray(data)) {
+        setProjects(data);
+      } else {
+        console.error('Error fetching projects:', data);
+        setProjects([]);
+      }
     } catch (error) {
       console.error('Error fetching projects:', error);
+      setProjects([]);
     } finally {
       setLoading(false);
     }
@@ -38,6 +46,15 @@ export default function ProjectManager() {
     try {
       const response = await fetch(`${API_URL}/api/github/repos`);
       const data = await response.json();
+      
+      // Check if the response is actually an array
+      if (!Array.isArray(data)) {
+        console.error('Error fetching repos:', data);
+        setRepos([]);
+        setReposData({});
+        return;
+      }
+      
       setRepos(data);
       
       // Create a map of repo data for easy lookup
@@ -48,6 +65,8 @@ export default function ProjectManager() {
       setReposData(reposMap);
     } catch (error) {
       console.error('Error fetching repos:', error);
+      setRepos([]);
+      setReposData({});
     }
   };
 
