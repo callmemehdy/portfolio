@@ -3,10 +3,10 @@
 <div align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115.6-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-5.4.21-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4.17-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-5.0.8-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
 A modern, vintage-styled portfolio website with GitHub integration, dark/light mode, and admin dashboard for managing projects dynamically.
@@ -82,19 +82,22 @@ This portfolio website is a full-stack application that seamlessly integrates wi
 | Technology | Version | Purpose |
 |------------|---------|---------|
 | ![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white) | 3.13+ | Core language |
-| ![FastAPI](https://img.shields.io/badge/FastAPI-0.115.6-009688?logo=fastapi&logoColor=white) | 0.115.6 | Web framework |
+| ![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688?logo=fastapi&logoColor=white) | 0.115.0 | Web framework |
 | ![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white) | 3.x | Database |
-| ![Uvicorn](https://img.shields.io/badge/Uvicorn-0.34.0-499848?logo=gunicorn&logoColor=white) | 0.34.0 | ASGI server |
-| ![PyJWT](https://img.shields.io/badge/PyJWT-2.10.1-000000?logo=jsonwebtokens&logoColor=white) | 2.10.1 | Authentication |
+| ![Uvicorn](https://img.shields.io/badge/Uvicorn-0.32.0-499848?logo=gunicorn&logoColor=white) | 0.32.0 | ASGI server |
+| ![HTTPX](https://img.shields.io/badge/HTTPX-0.28.1-000000?logo=python&logoColor=white) | 0.28.1 | HTTP client |
+| Pydantic | 2.10.3 | Data validation |
 
 ### Frontend Technologies
 
 | Technology | Version | Purpose |
 |------------|---------|---------|
-| ![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=black) | 18.3.1 | UI framework |
-| ![Vite](https://img.shields.io/badge/Vite-5.4.21-646CFF?logo=vite&logoColor=white) | 5.4.21 | Build tool |
-| ![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4.17-06B6D4?logo=tailwindcss&logoColor=white) | 3.4.17 | Styling |
-| ![Lucide](https://img.shields.io/badge/Lucide-0.468.0-F56565?logo=lucide&logoColor=white) | 0.468.0 | Icons |
+| ![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react&logoColor=black) | 18.2.0 | UI framework |
+| ![Vite](https://img.shields.io/badge/Vite-5.0.8-646CFF?logo=vite&logoColor=white) | 5.0.8 | Build tool |
+| ![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4.0-06B6D4?logo=tailwindcss&logoColor=white) | 3.4.0 | Styling |
+| ![Lucide](https://img.shields.io/badge/Lucide-0.562.0-F56565?logo=lucide&logoColor=white) | 0.562.0 | Icons |
+| Axios | 1.6.5 | HTTP client |
+| React Router | 6.21.1 | Routing |
 
 ---
 
@@ -144,8 +147,9 @@ npm install
 
 ### Environment Configuration
 
-Create a `.env` file in the project root:
+Create `.env` files in both backend and frontend directories:
 
+**backend/.env**
 ```env
 # GitHub Configuration
 GITHUB_TOKEN=your_github_personal_access_token_here
@@ -160,6 +164,13 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=change-this-password
 ```
+
+**frontend/.env**
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+You can use `make setup` to automatically create these files from templates.
 
 #### Creating GitHub Personal Access Token
 
@@ -179,8 +190,11 @@ ADMIN_PASSWORD=change-this-password
 # Install all dependencies
 make install
 
+# Setup environment files from templates
+make setup
+
 # Run both backend and frontend
-make dev
+make start
 
 # Run backend only
 make backend
@@ -188,8 +202,17 @@ make backend
 # Run frontend only
 make frontend
 
+# Stop all servers
+make stop
+
 # Clean build artifacts
 make clean
+
+# Remove all dependencies
+make clean-all
+
+# Quick commit and push
+make push
 
 # View all commands
 make help
@@ -275,11 +298,16 @@ portfolio/
 │   │   ├── database.py             # Database configuration
 │   │   ├── models.py               # SQLAlchemy models
 │   │   └── routes/
+│   │       ├── __init__.py
 │   │       ├── auth.py             # Authentication endpoints
 │   │       ├── projects.py         # Project management
 │   │       ├── github.py           # GitHub API integration
 │   │       └── settings.py         # Settings management
+│   ├── .env                        # Backend environment variables
+│   ├── .env.example                # Backend env template
 │   ├── requirements.txt            # Python dependencies
+│   ├── portfolio.db                # SQLite database
+│   ├── migrate_add_visibility.py   # Database migration script
 │   └── venv/                       # Virtual environment
 ├── frontend/
 │   ├── src/
@@ -289,25 +317,33 @@ portfolio/
 │   │   │   ├── Hero.jsx            # Landing section
 │   │   │   ├── About.jsx           # About section
 │   │   │   ├── Projects.jsx        # Project showcase
+│   │   │   ├── ProjectCard.jsx     # Individual project card
 │   │   │   ├── Contact.jsx         # Contact form
 │   │   │   ├── ProjectManager.jsx  # Admin project management
-│   │   │   └── SettingsPanel.jsx   # Admin settings
+│   │   │   ├── SettingsPanel.jsx   # Admin settings
+│   │   │   ├── ThemeToggle.jsx     # Dark/light mode toggle
+│   │   │   └── RepoModal.jsx       # Repository detail modal
 │   │   ├── pages/
 │   │   │   ├── Home.jsx            # Main page
 │   │   │   ├── Admin.jsx           # Admin dashboard
 │   │   │   └── Login.jsx           # Login page
 │   │   ├── context/
 │   │   │   └── ThemeContext.jsx    # Dark mode context
+│   │   ├── services/               # API service layer
+│   │   ├── utils/                  # Utility functions
 │   │   ├── styles/
 │   │   │   └── index.css           # Global styles
+│   │   ├── assets/                 # Static assets
 │   │   ├── App.jsx                 # Root component
 │   │   └── main.jsx                # Entry point
-│   ├── public/
-│   │   └── favicon.ico             # Site icon
+│   ├── public/                     # Public static files
+│   ├── .env                        # Frontend environment variables
+│   ├── .env.example                # Frontend env template
 │   ├── package.json                # Node dependencies
 │   ├── tailwind.config.js          # Tailwind configuration
-│   └── vite.config.js              # Vite configuration
-├── .env                            # Environment variables
+│   ├── postcss.config.js           # PostCSS configuration
+│   ├── vite.config.js              # Vite configuration
+│   └── vercel.json                 # Vercel deployment config
 ├── .gitignore                      # Git ignore rules
 ├── Makefile                        # Build automation
 ├── LICENSE                         # MIT License
