@@ -5,10 +5,10 @@ import About from '../components/About';
 import Projects from '../components/Projects';
 import Contact from '../components/Contact';
 
-export default function Home({ onAdminClick, showAdminButton = false }) {
+export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header onAdminClick={onAdminClick} showAdminButton={showAdminButton} />
+      <Header />
       
       <main className="flex-1 pt-20">
         <Hero />

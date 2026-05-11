@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Code2 } from 'lucide-react';
-import { authService } from '../services/api';
-import { settingsService } from '../services/settings';
+import githubService from '../services/github';
 import ThemeToggle from './ThemeToggle';
 
-export default function Header({ onAdminClick, showAdminButton = false }) {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [settings, setSettings] = useState({});
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,8 +14,11 @@ export default function Header({ onAdminClick, showAdminButton = false }) {
     };
     window.addEventListener('scroll', handleScroll);
     
-    // Load settings
-    settingsService.getSettings().then(setSettings).catch(console.error);
+    // Load user info from GitHub
+    const githubUsername = import.meta.env.VITE_GITHUB_USERNAME || 'callmemehdy';
+    githubService.getUser(githubUsername)
+      .then(setUserInfo)
+      .catch(console.error);
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -38,10 +40,10 @@ export default function Header({ onAdminClick, showAdminButton = false }) {
             </div>
             <div>
               <h1 className="text-2xl font-typewriter font-bold text-vintage-ink dark:text-dark-text">
-                {settings.full_name || 'Mehdi EL AKARY'}
+                {userInfo?.name || 'Portfolio'}
               </h1>
               <p className="text-xs font-mono text-vintage-brown dark:text-dark-textSecondary -mt-1">
-                {settings.title || 'AI Engineer'}
+                {userInfo?.bio || 'Developer'}
               </p>
             </div>
           </a>
@@ -61,15 +63,6 @@ export default function Header({ onAdminClick, showAdminButton = false }) {
             <div className="w-px h-6 bg-vintage-brown dark:bg-dark-border mx-2"></div>
             
             <ThemeToggle />
-            
-            {showAdminButton && onAdminClick && (
-              <button
-                onClick={onAdminClick}
-                className="ml-2 px-4 py-2 bg-vintage-accent dark:bg-dark-accent text-white font-bold text-sm rounded hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
-              >
-                Admin
-              </button>
-            )}
           </nav>
           
           <button
@@ -96,17 +89,6 @@ export default function Header({ onAdminClick, showAdminButton = false }) {
               <span className="font-mono text-sm text-vintage-brown dark:text-dark-textSecondary">Theme</span>
               <ThemeToggle />
             </div>
-            {showAdminButton && onAdminClick && (
-              <button
-                onClick={() => {
-                  onAdminClick();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full px-4 py-2 bg-vintage-accent dark:bg-dark-accent text-white font-bold text-sm"
-              >
-                Admin Panel
-              </button>
-            )}
           </div>
         )}
       </div>

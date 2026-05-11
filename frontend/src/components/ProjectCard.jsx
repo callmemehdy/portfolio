@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Star, GitFork, Calendar, ExternalLink, FileText } from 'lucide-react';
+import githubService from '../services/github';
 import { getLanguageColor, formatDate } from '../utils/helpers';
 import RepoModal from './RepoModal';
 
-export default function ProjectCard({ project, repoData }) {
+export default function ProjectCard({ project }) {
   const [showModal, setShowModal] = useState(false);
-  
-  const description = project.custom_description || repoData?.description || 'No description available';
-  const language = repoData?.language || 'Unknown';
-  const stars = repoData?.stargazers_count || 0;
-  const forks = repoData?.forks_count || 0;
-  const updated = repoData?.updated_at ? formatDate(repoData.updated_at) : 'Unknown';
+  const [readme, setReadme] = useState(null);
+  const [loadingReadme, setLoadingReadme] = useState(false);
+
+  const handleReadmeClick = async () => {
+    if (!readme && !loadingReadme) {
+      setLoadingReadme(true);
+      try {
+        const content = await githubService.getRepoReadme(project.owner.login, project.name);
+        setReadme(content);
+      } finally {
+        setLoadingReadme(false);
+      }
+    }
+    setShowModal(true);
+  };
+
+  const description = project.description || 'No description available';
+  const language = project.language || 'Unknown';
+  const stars = project.stargazers_count || 0;
+  const forks = project.forks_count || 0;
+  const updated = project.updated_at ? formatDate(project.updated_at) : 'Unknown';
   
   return (
     <>
@@ -19,10 +35,10 @@ export default function ProjectCard({ project, repoData }) {
           <div className="flex justify-between items-start mb-4">
             <div className="flex-1">
               <h3 className="text-2xl font-typewriter font-bold text-vintage-ink dark:text-dark-text mb-2">
-                {project.repo_name}
+                {project.name}
               </h3>
               <p className="text-sm font-mono text-vintage-brown dark:text-dark-textSecondary mb-1">
-                @{project.repo_owner}
+                @{project.owner.login}
               </p>
             </div>
             
@@ -38,7 +54,7 @@ export default function ProjectCard({ project, repoData }) {
           </p>
           
           <div className="flex flex-wrap gap-2 mb-4">
-            {repoData?.topics?.slice(0, 5).map((topic, idx) => (
+            {project.topics?.slice(0, 5).map((topic, idx) => (
               <span key={idx} className="vintage-tag text-xs">
                 {topic}
               </span>
@@ -62,7 +78,7 @@ export default function ProjectCard({ project, repoData }) {
           
           <div className="flex gap-3">
             <a
-              href={`https://github.com/${project.repo_owner}/${project.repo_name}`}
+              href={project.html_url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-vintage-ink dark:bg-dark-accent text-vintage-cream dark:text-dark-bg border-2 border-vintage-ink dark:border-dark-accent font-bold uppercase text-xs tracking-wider hover:bg-vintage-darkBrown dark:hover:bg-opacity-80 transition-all"
@@ -72,11 +88,12 @@ export default function ProjectCard({ project, repoData }) {
             </a>
             
             <button
-              onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-transparent text-vintage-ink dark:text-dark-text border-2 border-vintage-ink dark:border-dark-border font-bold uppercase text-xs tracking-wider hover:bg-vintage-tan dark:hover:bg-dark-surface transition-all"
+              onClick={handleReadmeClick}
+              disabled={loadingReadme}
+              className="flex items-center gap-2 px-4 py-2 bg-transparent text-vintage-ink dark:text-dark-text border-2 border-vintage-ink dark:border-dark-border font-bold uppercase text-xs tracking-wider hover:bg-vintage-tan dark:hover:bg-dark-surface transition-all disabled:opacity-50"
             >
               <FileText className="w-4 h-4" />
-              README
+              {loadingReadme ? 'LOADING...' : 'README'}
             </button>
           </div>
         </div>
@@ -85,6 +102,7 @@ export default function ProjectCard({ project, repoData }) {
       {showModal && (
         <RepoModal 
           project={project}
+          readme={readme}
           onClose={() => setShowModal(false)}
         />
       )}

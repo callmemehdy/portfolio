@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react';
 import profileImage from '../assets/me.jpeg';
-import { settingsService } from '../services/settings';
 
 export default function Hero() {
   const [displayText, setDisplayText] = useState('');
-  const [settings, setSettings] = useState({});
   const fullText = 'WELCOME TO MY DIGITAL ARCHIVE';
   
   useEffect(() => {
-    // Load settings
-    settingsService.getSettings().then(setSettings).catch(console.error);
-    
     // Typewriter effect
     let currentIndex = 0;
     const interval = setInterval(() => {
@@ -34,7 +29,7 @@ export default function Hero() {
               <div className="w-32 h-32 border-4 border-vintage-ink dark:border-dark-border overflow-hidden transition-colors">
                 <img 
                   src={profileImage} 
-                  alt={settings.full_name || 'Mehdi EL AKARY'}
+                  alt="Profile"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -48,7 +43,7 @@ export default function Hero() {
           
           <div className="border-4 border-vintage-ink dark:border-dark-border bg-vintage-tan dark:bg-dark-card p-6 shadow-vintage max-w-2xl mx-auto transition-colors">
             <p className="text-lg md:text-xl font-mono text-vintage-darkBrown dark:text-dark-textSecondary leading-relaxed transition-colors">
-              {settings.subtitle || 'AI/Software Engineer | Machine Learning Enthusiast | 1337 Coding School'}
+              Software Engineer | GitHub Portfolio
             </p>
           </div>
           

@@ -1,4 +1,4 @@
-.PHONY: help install-backend install-frontend install setup start stop clean test backend frontend push
+.PHONY: help install setup start stop clean test
 
 BLUE := \033[0;34m
 GREEN := \033[0;32m
@@ -8,104 +8,70 @@ push:
 	@git add . && read -p "Enter a commit message: " c && git commit -m "$$c" && git push
 
 help:
-	@echo "$(BLUE)Vintage Portfolio - Available Commands$(NC)"
+	@echo "$(BLUE)Portfolio Frontend - Available Commands$(NC)"
 	@echo ""
 	@echo "$(GREEN)Setup:$(NC)"
-	@echo "  make install          - Install all dependencies (backend + frontend)"
+	@echo "  make install          - Install frontend dependencies"
 	@echo "  make setup            - Setup environment files"
 	@echo ""
 	@echo "$(GREEN)Running:$(NC)"
-	@echo "  make start            - Start both backend and frontend servers"
-	@echo "  make backend          - Start only backend server"
-	@echo "  make frontend         - Start only frontend server"
-	@echo "  make stop             - Stop all running servers"
+	@echo "  make start            - Start frontend development server"
+	@echo "  make build            - Build frontend for production"
+	@echo "  make preview          - Preview production build"
+	@echo "  make stop             - Stop frontend server"
 	@echo ""
 	@echo "$(GREEN)Development:$(NC)"
-	@echo "  make test             - Run tests"
+	@echo "  make lint             - Run linter"
 	@echo "  make clean            - Remove generated files and caches"
-	@echo "  make clean-all        - Remove all including node_modules and venv"
 	@echo ""
 
-install: install-backend install-frontend
-	@echo "$(GREEN)All dependencies installed successfully!$(NC)"
-
-install-backend:
-	@echo "$(BLUE)Installing backend dependencies...$(NC)"
-	cd backend && python3 -m venv venv
-	cd backend && ./venv/bin/pip install --upgrade pip setuptools wheel
-	cd backend && ./venv/bin/pip install -r requirements.txt
-	@echo "$(GREEN)Backend dependencies installed!$(NC)"
-
-install-frontend:
+install:
 	@echo "$(BLUE)Installing frontend dependencies...$(NC)"
 	cd frontend && npm install
 	@echo "$(GREEN)Frontend dependencies installed!$(NC)"
 
 setup:
 	@echo "$(BLUE)Setting up environment files...$(NC)"
-	@if [ ! -f backend/.env ]; then \
-		cp backend/.env.example backend/.env; \
-		echo "$(GREEN)Created backend/.env from template$(NC)"; \
-		echo "$(BLUE)Please edit backend/.env and add your GitHub token$(NC)"; \
-	else \
-		echo "backend/.env already exists"; \
-	fi
 	@if [ ! -f frontend/.env ]; then \
 		cp frontend/.env.example frontend/.env; \
-		echo "$(GREEN)Created frontend/.env$(NC)"; \
+		echo "$(GREEN)Created frontend/.env from template$(NC)"; \
+		echo "$(BLUE)Edit frontend/.env and set your GitHub username$(NC)"; \
 	else \
 		echo "frontend/.env already exists"; \
 	fi
 
 start:
-	@echo "$(BLUE)Starting both servers...$(NC)"
-	@echo "Backend will run on http://localhost:8000"
+	@echo "$(BLUE)Starting frontend development server...$(NC)"
 	@echo "Frontend will run on http://localhost:5173"
 	@echo ""
-	@make -j2 backend frontend
+	@cd frontend && npm run dev
 
-backend:
-	@echo "$(BLUE)Starting backend server...$(NC)"
-	cd backend && ./venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+build:
+	@echo "$(BLUE)Building frontend for production...$(NC)"
+	@cd frontend && npm run build
+	@echo "$(GREEN)Build complete! Output in frontend/dist$(NC)"
 
-frontend:
-	@echo "$(BLUE)Starting frontend server...$(NC)"
-	cd frontend && npm run dev
+preview:
+	@echo "$(BLUE)Previewing production build...$(NC)"
+	@cd frontend && npm run preview
 
 stop:
-	@echo "$(BLUE)Stopping all servers...$(NC)"
-	@pkill -f "uvicorn app.main:app" || true
+	@echo "$(BLUE)Stopping frontend server...$(NC)"
 	@pkill -f "vite" || true
-	@echo "$(GREEN)All servers stopped$(NC)"
+	@echo "$(GREEN)Frontend stopped$(NC)"
 
-test:
-	@echo "$(BLUE)Running tests...$(NC)"
-	@echo "Testing backend health endpoint..."
-	@curl -s http://localhost:8000/health || echo "Backend not running"
-	@echo ""
-	@echo "Testing frontend..."
-	@curl -s http://localhost:5173 > /dev/null && echo "Frontend is running" || echo "Frontend not running"
+lint:
+	@echo "$(BLUE)Running linter...$(NC)"
+	@cd frontend && npm run lint
 
 clean:
 	@echo "$(BLUE)Cleaning generated files...$(NC)"
-	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-	find . -type f -name "*.pyc" -delete
-	find . -type f -name "*.pyo" -delete
-	find . -type f -name "*.db" -delete
-	rm -rf backend/*.db
-	rm -rf .pytest_cache
-	rm -rf frontend/dist
+	@rm -rf frontend/dist
+	@rm -rf frontend/.vite
 	@echo "$(GREEN)Cleanup complete$(NC)"
 
 clean-all: clean
 	@echo "$(BLUE)Removing all dependencies...$(NC)"
-	rm -rf backend/venv
-	rm -rf frontend/node_modules
+	@rm -rf frontend/node_modules
 	@echo "$(GREEN)All dependencies removed$(NC)"
 
-dev-backend:
-	cd backend && ./venv/bin/python -m pytest tests/ -v
-
-dev-frontend:
-	cd frontend && npm run build
-	cd frontend && npm run preview
