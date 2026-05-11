@@ -29,8 +29,9 @@ export default function Footer() {
               Portfolio
             </h3>
             <p className="font-mono text-sm text-vintage-darkBrown dark:text-dark-textSecondary leading-relaxed mb-4">
-              A showcase of my public GitHub repositories. Fetched directly from GitHub API with zero backend required.
-            </p>
+              A clean, modern portfolio showcasing my work as a software and AI engineer, with a focus on building scalable and practical solutions.
+              It highlights selected projects, technical skills, and real-world experience across full-stack development and machine learning.
+              Designed to reflect my approach to coding: simple, efficient, and driven by impact.
             <div className="flex gap-4">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
